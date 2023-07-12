@@ -5,7 +5,14 @@
   "scripts": {
     "serve": "NODE_ENV=development functions-framework --source=lib/ --target=handleFastlyPurgeBot",
     "dev": "NODE_ENV=development concurrently \"tsc -w\" \"nodemon --watch ./lib/ --exec yarn serve\"",
-    "build": "tsc"
+    "build": "tsc",
+    "lint": "gts lint",
+    "clean": "gts clean",
+    "compile": "tsc",
+    "fix": "gts fix",
+    "postinstall": "yarn run build",
+    "pretest": "yarn run compile",
+    "posttest": "yarn run lint"
   },
   "engines": {
     "node": "18"
