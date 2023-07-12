@@ -1,4 +1,5 @@
 import { FASTLY_API_TOKEN } from './env';
+import { FastlyError, NoServiceFoundError } from './errors';
 
 const BASE_URL = 'https://api.fastly.com';
 
@@ -15,7 +16,7 @@ async function searchDeliveryServiceIdByName(name: string) {
     headers: BASE_HEADERS,
   });
   if (!res.ok) {
-    throw new Error('No service found with such a name');
+    throw new NoServiceFoundError(name);
   }
 
   const data: { id: string } = await res.json();
@@ -30,7 +31,7 @@ export async function purgeByUrl(url: string) {
     method: 'PURGE',
   });
   if (!res.ok) {
-    throw new Error('Failed to purge');
+    throw new FastlyError('url-purge');
   }
 
   const data = await res.json();
@@ -58,7 +59,7 @@ export async function purgeByNameAndSurrogateKey(
     },
   );
   if (!res.ok) {
-    throw new Error('Failed to purge');
+    throw new FastlyError('surrogate-key-purge');
   }
 
   const data = await res.json();
@@ -87,7 +88,7 @@ export async function purgeByNameAndMultipleSurrogateKeys(
     }),
   });
   if (!res.ok) {
-    throw new Error('Failed to purge');
+    throw new FastlyError('multiple-surrogate-keys-purge');
   }
 
   const data = await res.json();
