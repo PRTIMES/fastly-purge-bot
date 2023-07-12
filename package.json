@@ -2,6 +2,7 @@
   "name": "fastly-purge-bot",
   "version": "1.0.0",
   "main": "lib/index.js",
+  "license": "MIT",
   "scripts": {
     "serve": "NODE_ENV=development functions-framework --source=lib/ --target=handleFastlyPurgeBot",
     "dev": "NODE_ENV=development concurrently \"tsc -w\" \"nodemon --watch ./lib/ --exec yarn serve\"",
