@@ -5,7 +5,7 @@ import {
   purgeByNameAndSurrogateKey,
   purgeByUrl,
 } from './fastly';
-import { KnownError, NoServiceFoundError } from './errors';
+import { KnownError } from './errors';
 
 const receiver = new ExpressReceiver({
   signingSecret: SLACK_SIGNING_SECRET,
