@@ -26,6 +26,7 @@ app.event('app_mention', async ({ say, event: { text } }) => {
           'You can use like `purge https://example.com/path/to/purge-target`',
         ].join('\n'),
       );
+      return;
     }
 
     // URL purge
