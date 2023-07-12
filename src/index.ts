@@ -10,7 +10,7 @@ const receiver = new ExpressReceiver({
 
 const app = new App({ receiver, token: SLACK_BOT_TOKEN });
 
-app.command('/purge', async ({ ack, say, body: { text } }) => {
+app.command('/purge', async ({ ack, respond, body: { text } }) => {
   await ack();
 
   const url = text.trim();
@@ -18,8 +18,8 @@ app.command('/purge', async ({ ack, say, body: { text } }) => {
   const response = await fetch(url, {
     method: 'PURGE',
   }).then((r) => r.json());
-  say(
-    [
+  respond({
+    text: [
       `URL: ${url}`,
       'Result: OK',
       'Response:',
@@ -27,7 +27,8 @@ app.command('/purge', async ({ ack, say, body: { text } }) => {
       JSON.stringify(response),
       '```',
     ].join('\n'),
-  );
+    response_type: 'in_channel',
+  });
 });
 
 export const handleFastlyPurgeBot = receiver.app;
