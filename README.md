@@ -1,5 +1,9 @@
 # fastly-purge-bot
 
+A Slack bot implementation for Fastly purge API.
+
+**This is not an official product.**
+
 ## Setup
 
 ### Create Slack App
