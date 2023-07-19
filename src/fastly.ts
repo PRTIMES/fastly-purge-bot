@@ -27,8 +27,9 @@ async function searchDeliveryServiceIdByName(name: string) {
  * purge by url (as anonymous user)
  */
 export async function purgeByUrl(url: string) {
-  const res = await fetch(url, {
-    method: 'PURGE',
+  const res = await fetch(`${BASE_URL}/purge/${url}`, {
+    method: 'POST',
+    headers: BASE_HEADERS,
   });
   if (!res.ok) {
     throw new FastlyError('url-purge');

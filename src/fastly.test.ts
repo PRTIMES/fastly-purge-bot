@@ -16,7 +16,7 @@ const mockServer = setupMockServer([
     serviceSearchListener(req.url.searchParams.get('name'));
     return res(ctx.status(200), ctx.json({ id: 'mock-service-id' }));
   }),
-  rest.all('https://example.com/path/to/page', (req, res, ctx) => {
+  rest.all('https://api.fastly.com/purge/*', (req, res, ctx) => {
     purgeRequestListener(req.method, req.url.href);
     return res(ctx.status(200), ctx.json({ status: 'ok' }));
   }),
@@ -48,12 +48,12 @@ afterAll(() => mockServer.close());
 
 describe('fastly', () => {
   describe('purgeByUrl', () => {
-    it('PURGE request should be sent', async () => {
+    it('POST request should be sent', async () => {
       await purgeByUrl('https://example.com/path/to/page');
 
       expect(purgeRequestListener).toHaveBeenLastCalledWith(
-        'PURGE',
-        'https://example.com/path/to/page',
+        'POST',
+        'https://api.fastly.com/purge/https://example.com/path/to/page',
       );
     });
 
